@@ -13,9 +13,8 @@ This Component is used to show the product tabs functionality with Tailind CSS
 
 ## Dependencies
 
- - Dependency 1 [*Example: Splide slider (https://splidejs.com/)*]
- - Dependency 2 [*Example: Animate CSS (https://animate.style/)*]
- - Dependency 3 [*Example: Google sheet API Key*]
+ - Dependency 1 [Splide slider (https://splidejs.com/)*]
+ - Dependency 2 [Need to have the carousel.js file in your assets. Feel free to edit the functionality]
 
 
 ## Implementation Steps

@@ -1,15 +1,14 @@
-# Sample Component
+# Component Tailwind Product Tabs
 
-Utilize this section to detail the component, explaining the specific problem it addresses, its ideal use cases, and step-by-step instructions on how to implement it. This comprehensive description will help users understand its relevance and functionality, ensuring they can effectively integrate and leverage the component in their Shopify storefronts. 
+This Component is used to show the product tabs functionality with Tailind CSS
 
 **Live Preview Link**: https://levi.in/?preview_theme_id=168420475170
 
 
 ## Features
 
- - Feature 1 [*Example: Option to show / hide slider dots*] - NA
- - Feature 2 [*Example: Option to switch layout grid / slider*] - NA
- - Feature 3 [*Example: Option to customise rating stars*] -NA
+ - Feature 1 [*Option to show / hide slider dots and Arrows*] 
+ ![alt text](image.png)
 
 
 ## Dependencies

@@ -1,0 +1,249 @@
+<script src="{{ 'component-tailwind-product-tabs.js' | asset_url }}" defer></script>
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.mobile-padding-top | append: 'px' }};
+    padding-bottom: {{ section.settings.mobile-padding-bottom | append: 'px' }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.desktop-padding-top | append: 'px' }};
+      padding-bottom: {{ section.settings.desktop-padding-bottom | append: 'px' }};
+    }
+  }
+{% endstyle %}
+{{ 'component-tailwind-product-tabs.css' | asset_url | stylesheet_tag: preload: true }}
+
+<div class="{% unless section.settings.section_full_width %} page-width {% endunless %} section-{{ section.id }}-padding section-product-tabs">
+  {% if section.settings.section_heading != blank or section.settings.section_paragraph != blank %}
+    <div class="bmd:tw-pt-6 bmd:tw-px-4 bmd:tw-pb-1 md:tw-mb-4 {{ section.settings.heading_align }}">
+      {% if section.settings.section_heading != blank %}
+        <h2 class="{{ section.settings.heading_size }} tw-mb-4 tw-leading-normal">
+          {{ section.settings.section_heading }}
+        </h2>
+      {% endif %}
+      {% if section.settings.section_paragraph != blank %}
+        <p class="tw-text-[12px] md:tw-text-[14px] tw-mt-4">
+          {{ section.settings.section_paragraph }}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+  <product-tabs>
+    <div class="tw-flex tw-gap-4 tw-border-b lg:tw-justify-center {% if section.blocks.size > 7 %} md:tw-justify-start{% else %} md:tw-justify-center{% endif %} bmd:tw-justify-between tw-overflow-y-auto scroll-bar-hide tw-bg-[#eeeeee] tw-border-t">
+      {% for block in section.blocks %}
+        <p class="tw-p-2 tw-cursor-pointer tab-heading tw-min-w-[10rem] tw-text-center {% if forloop.first %}active{% endif %}">
+          {{ block.settings.tab_heading | upcase }}
+        </p>
+      {% endfor %}
+    </div>
+
+    {% for block in section.blocks %}
+      <div
+        class="tab-content tw-mt-4"
+        data-collection="{{ forloop.index }}"
+        style="display: {% if forloop.first %}block{% else %}none{% endif %};"
+      >
+        <carousel-component
+          id="carousel--{{ block.id }}"
+          class="splide tw-block splide-issue-product-cards"
+          data-desktopperpage="{{ section.settings.slides_perpage | default: 3 }}"
+          data-desktopslidegap="{{ section.settings.desktop-gap-products | append: 'px' }}"
+          data-mobileslidegap="{{ section.settings.mobile-gap-products | append: 'px' }}"
+          data-mobileperpage="1.8"
+          data-showdots="{{ section.settings.enable_pagination | default: false }}"
+          data-showdotsonmobile="{{ section.settings.enable_pagination | default: false }}"
+          data-focus="left"
+          data-type="slide"
+          data-showarrows="{{ section.settings.enable_arrows | default: false }}"
+          data-showarrowsonmobile="{{ section.settings.enable_arrows | default: false }}"
+          data-desktopPerMove="1"
+          data-mobilePerMove="1"
+        >
+          <div class="splide__track tw-pb-4">
+            <ul class="splide__list">
+              {% for product in block.settings.product_list %}
+                <li class="splide__slide {% if forloop.first %}active{% endif %}">
+                  {% render 'product-card', product: product %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </carousel-component>
+      </div>
+    {% endfor %}
+  </product-tabs>
+</div>
+
+{% schema %}
+{
+  "name": "Tailwind Product Tabs",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "section_full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        },
+        {
+          "value": "hxl",
+          "label": "Extra Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "text",
+      "id": "section_paragraph",
+      "label": "Section Paragraph"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading align",
+      "options": [
+        {
+          "label": "Left",
+          "value": "tw-text-left"
+        },
+        {
+          "label": "Center",
+          "value": "tw-text-center"
+        },
+        {
+          "label": "Right",
+          "value": "tw-text-right"
+        }
+      ],
+      "default": "tw-text-center"
+    },
+    {
+      "type": "header",
+      "content": "SLIDER SETTINGS"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_pagination",
+      "label": "Show Page Dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_arrows",
+      "label": "Show Arrows",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "slides_perpage",
+      "label": "Slides perpage",
+      "default": 3,
+      "info": "Default 3 slides"
+    },
+    {
+      "type": "range",
+      "id": "desktop-gap-products",
+      "label": "Desktop Products gap",
+      "default": 30,
+      "min": 10,
+      "step": 10,
+      "max": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile-gap-products",
+      "label": "Mobile Products gap",
+      "default": 10,
+      "min": 10,
+      "step": 10,
+      "max": 50
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "desktop-padding-top",
+      "label": "Desktop padding top",
+      "default": 0,
+      "min": 0,
+      "step": 1,
+      "max": 100
+    },
+    {
+      "type": "range",
+      "id": "desktop-padding-bottom",
+      "label": "Desktop padding bottom",
+      "default": 0,
+      "min": 0,
+      "step": 1,
+      "max": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-top",
+      "label": "Mobile padding top",
+      "default": 0,
+      "min": 0,
+      "step": 1,
+      "max": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-bottom",
+      "label": "Mobile padding bottom",
+      "default": 0,
+      "min": 0,
+      "step": 1,
+      "max": 100
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product Tabs Contents",
+      "type": "product_tabs",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_heading",
+          "label": "Type Your Tab Name"
+        },
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "Choose The Products"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tailwind Product Tabs"
+    }
+  ]
+}
+{% endschema %}

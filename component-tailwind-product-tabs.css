@@ -1,0 +1,42 @@
+.tab-heading.active {
+    color: #C41320;
+    background-color: #FFFFFF;
+}
+
+.section-product-tabs carousel-component .splide__pagination__page {
+    border: 1px solid #333333;
+}
+
+.section-product-tabs carousel-component .splide__pagination__page.is-active {
+    z-index: 2;
+    background: #333333;
+    transform: unset;
+}
+
+.section-product-tabs carousel-component .splide__pagination__page {
+    width: 11px;
+    height: 11px;
+}
+
+.section-product-tabs carousel-component .splide__arrow--prev {
+    left: 0;
+}
+
+.section-product-tabs carousel-component .splide__arrow--next {
+    right: 0;
+}
+
+.section-product-tabs .splide:not(.is-overflow) .splide__pagination {
+    display: flex;
+}
+
+.section-product-tabs carousel-component .splide__pagination {
+    position: unset;
+}
+
+@media screen and (min-width:750px) {
+    .section-product-tabs carousel-component .splide__pagination__page {
+        width: 13px;
+        height: 13px;
+    }
+}
